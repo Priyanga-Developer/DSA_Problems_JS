@@ -195,12 +195,64 @@ console.log(rotateArray3([1,4,5,6,7,8],3)); //[6, 7, 8, 1, 4, 5]
     return maxSum
  }
  console.log(subArraySum([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
+//  9. Check if an array is palindrome or not:
+// Approach 1: Using a Loop
+function isPalindrome(arr){
+    //6/3
+    // i values from 0 to 2 (since arr.length/2 is 2.5,
+  for (let i = 0; i < arr.length/2; i++) {
+    if(arr[i] !== arr[arr.length-1-i]){ 
+        //arr[0]!==arr[6-1-0] => arr[0]!==arr[5]
+        //arr[1]!==arr[6-1-1] => arr[1]!==arr[4]
+        //arr[2]!==arr[6-1-2] => arr[2]!==arr[3]
+        return false
+    }
+  }
+  return true;
+}
+console.log(isPalindrome([1,2,3,4,5,6]));
+console.log(isPalindrome([1,2,3,2,1]));
 
+// Approach 2: Using a while Loop
+function isPalindrome2(arr) {
+    let start=0;
+    let end=arr.length-1;
+    while(start<end){
+        if(arr[start]!==arr[end]){
+            return false
+        }
+        start++;
+        end--;
+    }
+    return true
+}
+console.log(isPalindrome2([1,2,3,4,5,6,7]));
+console.log(isPalindrome2([1,2,3,2,1]));
+// Approach 3: Using Array Reverse and Comparison
 
+function isPalindrome3(arr) {
+    const newArray=[...arr].reverse();
+    return JSON.stringify(arr)===JSON.stringify(newArray)
+}
+console.log(isPalindrome3([1,2,3,2,1]));
 
-
-
-
+// Approach 4: Using the every() method
+function isPalindrome4(arr) {
+   return arr.every((value,index)=>value===arr[arr.length-1-index]) 
+    
+}
+console.log(isPalindrome4([1,2,3,2,1]));
+// Approach 5: Using Recursion
+function isPalindromeRecursion(arr){
+    if(arr.length<=1){
+        return true
+    }
+    if(arr[0]!==arr[arr.length-1]){
+        return false
+    }
+    return isPalindromeRecursion(arr.slice(1,-1))
+}
+console.log(isPalindromeRecursion([1,2,3,2,1]));
  return(
     <>
         <h1>Arrays</h1>
@@ -213,10 +265,6 @@ console.log(rotateArray3([1,4,5,6,7,8],3)); //[6, 7, 8, 1, 4, 5]
         </div>
        <div>{rotateArray(newArray2,2).join(",")}{rotateArray2(newArray2,2).join(",")} </div>
     </>
- ) 
-
-    
-
-   
+ )    
 }
 export default Arrays
