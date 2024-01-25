@@ -253,6 +253,70 @@ function isPalindromeRecursion(arr){
     return isPalindromeRecursion(arr.slice(1,-1))
 }
 console.log(isPalindromeRecursion([1,2,3,2,1]));
+// -------------------------------------------------------------------------------------------------------------------------------------------------------
+// Implement a function to shuffle an array.
+// We have multiple approaches:
+// 1. Fisher-Yates Shuffle Algorithm: This algorithm involves iterating through the array and swapping each element with a randomly chosen element 
+// that comes after it.
+
+// 2. Using the `sort` Method with a Custom Comparator: You can use the `sort` method and provide a custom comparator function that generates random 
+// values for comparison, effectively shuffling the array.
+
+// 3. Using a While Loop with Random Indices: A while loop can be used to repeatedly swap elements by selecting random indices within the array until 
+// the entire array is shuffled.
+
+// 4. Using the `forEach` Method with Modern JavaScript Syntax: The `forEach` method can be employed with modern JavaScript syntax to iterate 
+// through the array and swap elements with randomly selected indices.
+
+// 5. Using the `map` Method and `Math.random`: This approach uses the `map` method to create an array of tuples containing random values and 
+// the original elements, then sorts the tuples based on the random values, effectively shuffling the array.
+
+// Fisher-Yates Shuffle with While Loop
+function shuffleArray(array) {
+    let currentIndex=array.length;
+    let temporaryValue; 
+    let randomIndex;
+    while (currentIndex!==0) {
+        randomIndex=Math.floor(Math.random()*currentIndex);
+        currentIndex--;
+        temporaryValue=array[currentIndex];
+        array[currentIndex]=array[randomIndex];
+        array[randomIndex]=temporaryValue;
+    }
+    return array
+}
+// Fisher-Yates Shuffle with For Loop
+function shuffleArray2(array) {
+    for (let i = array.length-1; i>0; i--) {
+       const j=Math.floor(Math.random()*(i+1));
+       [array[i],array[j]]=[array[j],array[i]]    
+    }
+  return array;  
+}
+// Using the sort method with a custom comparator
+function shuffleArray3(array) {
+    array.sort(() => Math.random() - 0.5);
+  }
+
+  // Using forEach and a modern JavaScript syntax
+function shuffleArrayForEach(array) {
+    array.forEach((_, i) => {
+      const randomIndex = Math.floor(Math.random() * (i + 1));
+      [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
+    });
+  }
+  // Using map and Math.random
+function shuffleArrayMap(array) {
+    array = array.map(a => [Math.random(), a])
+                 .sort((a, b) => a[0] - b[0])
+                 .map(a => a[1]);
+  }
+
+console.log(shuffleArray([2,3,4,5,6,2,4,5,6]));
+console.log(shuffleArray2([2,3,4,5,6,2,4,5,6]));
+console.log(shuffleArray3([1,2,3,5,6,7,3]))
+console.log(shuffleArrayForEach([4,3,5,2,3,5,6]));
+console.log(shuffleArrayMap([2,4,5,6,7,7]));
  return(
     <>
         <h1>Arrays</h1>
